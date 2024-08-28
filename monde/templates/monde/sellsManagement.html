@@ -1,0 +1,28 @@
+{%extends "monde/layout.html"%}
+
+{%block body%}
+<body>
+<h1>Sells</h1>
+<table>
+    <tr>
+        <th>Customer</th>
+        <th>Item</th>
+        <th>Item Id</th>
+        <th>Status</th>
+        
+    </tr>
+    {%for i,v in sellsTableContent.items%}
+    <tr>
+        <td><p>{{i}}</p></td>
+        {%for k in v%}
+            <td><p>{{k}}</p></td>
+        {%endfor%}
+    {%endfor%}
+    </tr>
+</table>
+{%for d in DeliveriesButtonsContent%}
+<button>{{d}}</button>
+{%endfor%}
+<button>Deliver all</button>
+</body>
+{%endblock%}

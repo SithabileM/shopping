@@ -1,0 +1,27 @@
+#menu{
+    position: fixed;
+    top: 0;
+    left : -200px;
+    width:200px;
+    transition: left 0,5s;
+}
+#menu-button{
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:1;
+
+}
+#main-content{
+    margin-left: 0;
+    transition: margin-left 0,5s;
+}
+#menu.visible{
+    left:0;
+}
+#main-content.menu-open{
+    margin-left: 250px;
+}
+#welcome{
+    text-align: center;
+}

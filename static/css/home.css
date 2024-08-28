@@ -1,0 +1,26 @@
+#menu{
+    position:fixed;
+    top:0;
+    left : -200px;
+    width:200px;
+    background-color: #DAAF23;
+    border: 1px solid #ccc;
+    transition: left 0,5s;
+}
+#menu-button{
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:1;
+
+}
+#main-content{
+    margin-left: 80px;
+    transition: margin-left 0,5s;
+}
+#menu-visible{
+    left:0;
+}
+#main-content.menu-open{
+    margin-left:0;
+}

@@ -1,0 +1,54 @@
+{%extends "monde/layout.html"%}
+
+{%block body%}
+</form>
+{%if isSeller%}
+<form action="restock" method="post" >
+    {%csrf_token%}
+<P>Welcome back hustler...would you like to restock?</p>
+<input type="number" name="restock" placeholder="Amount to add">
+<input type="hidden" name="clothing_id" value="{{clothing_id}}">
+<input type="submit">
+</form>
+<a href="sellsManagement">see more...</a>
+{%endif%}
+<br>
+
+<img id="product-image" src="{{image.url}}" style="width:400px; height:400px;">
+<h2 id="short-description">{{shortDescription}}</h2>
+<pre>{{description}}</pre>
+<p>{{name}}</p>
+{%if quantity == 0%}
+<p>Available quantity: Out of stock</p>
+{%else%}
+<p>Available quantity: {{quantity}}</p>
+{%endif%}
+<p>Rating: {{rating}}</p>
+<p id="product-price">Price: ${{price}}</P>
+<p id="shipping-date">shipping date: {{shippingDate}}</p>
+<form method="get" action="{%url "cart"%}">
+    {%csrf_token%}
+    <input type="hidden" name="clothing_id" value="{{clothing_id}}">
+    <input type="hidden" name="price" value="{{price}}">
+    <input type="hidden" name="shortDescription" value="{{shortDescription}}">
+    <label for="amount">specify the quantity of the item you wamt to purchase: </label>
+    <input id="amount" type='number' name="amount" max='{{quantity}}'><br>
+    <button type="submit" name="submit">Add to cart</button>
+</form>
+
+    <div>
+        <h3> Reviews: </h3>
+        <form action="addReview" method="post">
+            {%csrf_token%}
+            <input type="text"name="userReview" placeholder="Add a review...">
+            <input type="hidden" name="clothing" value="{{clothing_id}}">
+            <input type="submit">
+        </form>
+        {%for review in reviews%}
+        <div>
+        <p> {{ review.review}}</P>
+        <p>{{review.user }}</p>
+        </div>
+        {%endfor%}
+    </div>
+{%endblock%}

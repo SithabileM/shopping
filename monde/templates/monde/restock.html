@@ -1,0 +1,8 @@
+{%extends "monde/layout.html"%}
+
+{%block body%}
+<form method="post">
+    {%csrf_token%}
+    <input type="number" name="quantity" placeholder="specify the quantity you want to add to inventory">
+</form>
+{%endblock%}
