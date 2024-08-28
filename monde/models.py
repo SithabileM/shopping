@@ -40,6 +40,7 @@ class ClothingItem(models.Model):
 class UserOwnedItems(models.Model):
     user= models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     clothing_item=models.ForeignKey(ClothingItem,on_delete=models.CASCADE)
+    amount_purchased=models.IntegerField(default=1)
     status=models.BooleanField(default=False)
     
 #Add a one-to-one field to the User model

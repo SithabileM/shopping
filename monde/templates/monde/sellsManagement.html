@@ -21,7 +21,11 @@
     </tr>
 </table>
 {%for d in DeliveriesButtonsContent%}
-<button>{{d}}</button>
+<form method="post" action="Deliver">
+    {%csrf_token%}
+    <input type="hidden" value={{d}}>
+    <input type='submit' value="Deliver item {{d}}">
+</form>
 {%endfor%}
 <button>Deliver all</button>
 </body>

@@ -39,17 +39,19 @@ class MyCart:
         for i in self.items:
         #check if child object is not none
             if i.item is not None:
+                print(i.item.id)
                 currentImg=i.item.image
                 amnt=i.amount
                 prc=i.item.price
-                self.cart_data[str(currentImg)]=(["Amount in cart: "+str(amnt),"Price: $"+ str(prc)])
+                self.cart_data[str(currentImg)]=([str(amnt),str(prc)])
         return self.cart_data
     def deleteCart(self,user):
         self.items=CartItems.objects.filter(user=user)
         for i in self.items:
             i.delete()
         self.cart_data={}
-              
+        return
+             
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
@@ -219,25 +221,23 @@ def checkout(request):
     #get the submitted cart items
     cart=MyCart()
     cartItems=cart.getCart(request.user)
-    #add them to the user owned items
-    for i in cartItems.keys():
-        myItem=ClothingItem.objects.get(image=i)
-        UserOwnedItems.objects.create(clothing_item=myItem,user=request.user)
-    #decrease the users balance by the subtotal
-    user.bank_balance=balance-subtotal
-    user.save()
-    #Increase the sellers bank account of each item by the subtotal
-    for i in cartItems.keys():
-        #looking for the name of an item in clothingItems with an image(i)
-        item=ClothingItem.objects.get(image=i)
-        myItem=item.id
-        #check who is the seller by finding out who has the item in the inventory
-        isSeller=UserProfile.objects.get(inventory=myItem)
-        isSeller.bank_balance += subtotal
-        isSeller.save()
-        
-    #decrease the quentity of clothing items
     
+    
+    for i in cartItems:
+        #decrease each items quantity
+        itemToDecrease=ClothingItem.objects.get(image=i)
+        itemToDecrease.quantity-=int(cartItems[i][0])
+        itemToDecrease.save()
+        #decrease the current users bank balance by the amount
+        user=UserProfile.objects.get(user=request.user)
+        user.bank_balance -= float(cartItems[i][1])
+        print(cartItems[i][1])
+        #increase the seller of i bank balance by the price
+        itemToDecreaseId=itemToDecrease.id
+        seller=UserProfile.objects.get(inventory=itemToDecreaseId)
+        seller.bank_balance+=float(cartItems[i][1])
+        seller.save()
+        
     #clear the users cart
     cart.deleteCart(request.user)
     #display a success message
@@ -260,19 +260,21 @@ def sellsManagement(request):
     
     tableContent={}
     Deliveries=set()
+    TotalAmount={}
     for i in inventory:
         items=UserOwnedItems.objects.filter(clothing_item=i)
         for j in items:
             clothingId=j.clothing_item.id
+            TotalAmount[clothingId]= j.clothing_item.price*j.clothing_item.quantity
             if j.status is False:
                 status="Pending..."
             else:
                 status="Delivered"
-            Deliveries.add("Deliver item " + str(clothingId))
+            Deliveries.add(str(clothingId))
             tableContent[j.user]=[str(j.clothing_item),str(clothingId),str(status)]
             
 
-            
+    print(TotalAmount)       
     return render(request,"monde/sellsManagement.html",{
        "sellsTableContent":tableContent,
        "DeliveriesButtonsContent": Deliveries
