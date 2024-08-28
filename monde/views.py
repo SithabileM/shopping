@@ -49,8 +49,9 @@ class MyCart:
         self.items=CartItems.objects.filter(user=user)
         for i in self.items:
             i.delete()
+            i.save()
         self.cart_data={}
-        return
+        
              
 # Create your views here.
 def index(request):
@@ -237,8 +238,17 @@ def checkout(request):
         seller=UserProfile.objects.get(inventory=itemToDecreaseId)
         seller.bank_balance+=float(cartItems[i][1])
         seller.save()
+        #make the item a user owned item
+        UserOwnedItems.objects.create(
+            user=request.user,
+            clothing_item=itemToDecrease,
+            amount_purchased=int(cartItems[i][0]),
+            status=False
+            )
         
     #clear the users cart
+    if len(cart.items)==0:
+        return HttpResponse("Oops! It looks like your cart is empty")
     cart.deleteCart(request.user)
     #display a success message
     return HttpResponse("Thank You for shopping with Monde :)")
