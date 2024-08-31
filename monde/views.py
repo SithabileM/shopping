@@ -2,9 +2,10 @@ from django.shortcuts import render,HttpResponseRedirect,redirect
 from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from .models import ClothingItem,UserProfile,CartItems,Sections,UserOwnedItems,Review
+from .models import *
 from .form import ClothingForm
 from datetime import date
+from django.contrib.auth.forms import UserCreationForm
 
 def search(searchTerm):
     """generate sections and the data for each section"""
@@ -27,7 +28,6 @@ def get_sections():
         sectionId=section.id
         sectionItems=ClothingItem.objects.filter(clothingSections=sectionId)
         sectionData[section.name]=sectionItems
-        
     return sectionData
          
 #gets the contents of the users cart 
@@ -39,12 +39,13 @@ class MyCart:
         for i in self.items:
         #check if child object is not none
             if i.item is not None:
-                print(i.item.id)
                 currentImg=i.item.image
                 amnt=i.amount
                 prc=i.item.price
                 self.cart_data[str(currentImg)]=([str(amnt),str(prc)])
         return self.cart_data
+    
+    
     def deleteCart(self,user):
         self.items=CartItems.objects.filter(user=user)
         for i in self.items:
@@ -52,7 +53,15 @@ class MyCart:
             i.save()
         self.cart_data={}
         
-             
+def register(request) :
+    form=UserCreationForm()
+    if request.method=="POST":
+        form=UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context={"form":form}
+    return render(request,"monde/register.html",context)
+           
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
@@ -90,8 +99,7 @@ def index(request):
     if request.method=="POST":
         searchTerm=request.POST["search"]
         sectionData=search(searchTerm)
-        
-        
+         
     return render(request,"monde/home.html",{
         "sectionData": sectionData,
         "img":img,
@@ -122,6 +130,7 @@ def sell_page(request):
     year=date.today().year
     sectionData=get_sections()
     sections=[]
+    
     for i,v in sectionData.items():
         sections+=[i]
     if request.method=="POST":
@@ -130,15 +139,25 @@ def sell_page(request):
         shortDescription=request.POST["shortDescription"]
         quantity=request.POST["quantity"]
         price=request.POST["price"]
-        image=request.POST["image"]
+        image=request.FILES["image"]
+        sections=request.POST.getlist("sections")
         
         current = ClothingItem.objects.create(name=name)
         current.description=description
         current.shortDescription=shortDescription
         current.quantity=quantity
         current.price=price
-        current.image="images/"+str(year)[-2:]+"/"+image
+        current.image=image
+        for i in sections:
+            sec=Sections.objects.get(name=i)
+            secId=sec.id
+            current.clothingSections.add(secId)
         current.save()
+        
+        #add the item to inventory
+        user=UserProfile.objects.get(user=request.user)
+        user.inventory.add(current.id)
+        user.save()
         
     return(render(request,"monde/sell.html",{
         "sections":sections,
@@ -169,7 +188,8 @@ def single_item(request,clothing_id):
                 "image":item.image,
                 "clothing_id":clothing_id,
                 "isSeller":isSeller,
-                "reviews":reviews
+                "reviews":reviews,
+                "shippingDate": item.shippingDate
                 
             })
     return HttpResponse()
@@ -258,10 +278,9 @@ def review_view(request):
     if request.method=="POST":
         userReview=request.POST["userReview"]
         clothing=int(request.POST['clothing'])
-        print(userReview)
-        print(clothing)
-    Review.objects.create(user=request.user, reviewItem=clothing,review=userReview)
-    return HttpResponseRedirect("single")
+        clothingInst=ClothingItem.objects.get(id=clothing)
+    Review.objects.create(user=request.user, reviewItem=clothingInst,review=userReview)
+    return HttpResponseRedirect("/monde/"+str(clothing))
 
 def sellsManagement(request):
     
@@ -282,9 +301,7 @@ def sellsManagement(request):
                 status="Delivered"
             Deliveries.add(str(clothingId))
             tableContent[j.user]=[str(j.clothing_item),str(clothingId),str(status)]
-            
-
-    print(TotalAmount)       
+                   
     return render(request,"monde/sellsManagement.html",{
        "sellsTableContent":tableContent,
        "DeliveriesButtonsContent": Deliveries

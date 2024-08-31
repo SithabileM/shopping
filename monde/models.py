@@ -28,7 +28,7 @@ class ClothingItem(models.Model):
     quantity=models.IntegerField(default=0)
     price=models.DecimalField(default=0,max_digits=10, decimal_places=2)
     shippingDate=models.DateField(default=monthFromNow)
-    image=models.ImageField(upload_to='images/%y',default="OIP.jpg")
+    image=models.ImageField(upload_to='media/images/%y',default="OIP.jpg")
     clothingSections=models.ManyToManyField(Sections,max_length=100)
     
     
