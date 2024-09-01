@@ -45,12 +45,12 @@
 
 <main id="main-content">
     <h1 id="welcome">Welcome {{user}}</h1>
+    <a id="sell" href="sell">sell Items</a><br>
     <form action='' method="post">
         {% csrf_token %}
         <input type="text" name="search" placeholder="Search for items..."><i class="fa-solid fa-magnifying-glass"></i>
         <input type="submit" value="Search">
     </form>
-    <a href="sell">sell Page</a><br>
 {%if obj%}
 <h3>Successfully Loaded: {{img_obj.description}}
 <img src="{{obj.image.url}}" alt="{{image.description}}">

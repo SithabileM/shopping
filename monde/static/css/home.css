@@ -6,7 +6,7 @@
     overflow: auto; 
     width: 200px; 
     height: 500px;
-    transition: left 0,5s;
+    transition: left 0.015s;
 }
 #menu-button{
     position: fixed;
@@ -55,4 +55,14 @@
 #mainPageImages:hover{
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     
+}
+#sell{
+    position:relative;
+    transform: translate(60%,60%);
+    text-decoration: none;
+    color: black;
+}
+
+#sell:hover{
+    color: rgb(255,0,150);
 }
