@@ -19,9 +19,10 @@
 {%endif%}
 <br>
 
+<div>
 <img id="productImage" src="{{image.url}}">
 <h2 id="short-description">{{shortDescription}}</h2>
-<pre>{{description}}</pre>
+<pre style=" border-width:2px;display: flex;">{{description}}</pre>
 <p>{{name}}</p>
 {%if quantity == 0%}
 <p>Available quantity: Out of stock</p>
@@ -40,10 +41,10 @@
     <input id="amount" type='number' name="amount" max='{{quantity}}'><br>
     <button type="submit" name="submit">Add to cart</button>
 </form>
-
+</div>
     <div id="Reviews">
-        <h3> Reviews: </h3>
-        <form action="addReview" method="post">
+        <h3 id="reviewHeader"> Reviews: </h3>
+        <form id="addReviewForm" action="addReview" method="post">
             {%csrf_token%}
             <input id="addReviewInput" type="text"name="userReview" placeholder="Add a review...">
             <input type="hidden" name="clothing" value="{{clothing_id}}">

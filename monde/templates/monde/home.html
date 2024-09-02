@@ -24,14 +24,14 @@
 <button id="menu-button">Open cart</button><br>
 <nav id="menu">
     {%for i,v in cart_data.items%}
-    <div>
+    <div id="cartItem">
     <img id="navImage"src="/media/{{i}}" alt="cart item">
     <form method="get" action="remove">
         <input type="hidden" name="item" value="{{i}}">
         <input type="submit" value="Remove from cart">
     </form>
     {%for val in v%}
-    <p>{{val}}</P>
+    <p id="cartPriceAndAmount">{{val}}</P>
     {%endfor%}
     </div>
     {%endfor%}
@@ -48,7 +48,7 @@
     <a id="sell" href="sell">sell Items</a><br>
     <form action='' method="post">
         {% csrf_token %}
-        <input type="text" name="search" placeholder="Search for items..."><i class="fa-solid fa-magnifying-glass"></i>
+        <input id="search" type="text" name="search" placeholder="Search..."><i class="fa-solid fa-magnifying-glass"></i>
         <input type="submit" value="Search">
     </form>
 {%if obj%}

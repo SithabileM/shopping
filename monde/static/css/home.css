@@ -2,11 +2,12 @@
     position: fixed;
     top: 0;
     left : -200px;
-    width:200px;
     overflow: auto; 
     width: 200px; 
-    height: 500px;
+    height: 450px;
     transition: left 0.015s;
+    padding-top: 4%;
+    background-color: pink;
 }
 #menu-button{
     position: fixed;
@@ -57,12 +58,24 @@
     
 }
 #sell{
-    position:relative;
-    transform: translate(60%,60%);
     text-decoration: none;
     color: black;
+    padding-left: 90%;
+    
 }
 
 #sell:hover{
     color: rgb(255,0,150);
+}
+
+#search{
+    border-color: black;
+}
+
+#cartPriceAndAmount{
+    color: black;
+    font-weight: bold;
+}
+#cartItem{
+    background-color: pink;
 }
