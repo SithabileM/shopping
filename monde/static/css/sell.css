@@ -1,0 +1,21 @@
+.sellFormField{
+    margin-bottom: 0.5%;
+}
+
+.sellFormField:hover{
+   border-color: black; 
+}
+
+#submit:hover{
+border-color: rgb(255,0,150);
+background-color: rgb(255,0,150);
+}
+
+#itemHeader{
+    text-align: center;
+}
+#description{
+    width: 35%; 
+    height:100%; 
+    display: inline-block;
+}

@@ -1,20 +1,26 @@
 {%extends 'monde/layout.html'%}
 
+{%block head%}
+{%load static%}
+<link rel="stylesheet" href="{%static "css/sell.css"%}"/>
+
+{%endblock%}
+
 {%block body%}
-<h3> please provide the following information regarding your item </h3>
+<h3 id="itemHeader"> Fill in the following: </h3>
 <form action='' method="post" enctype="multipart/form-data">
     {%csrf_token%}
-    <input type="text" name="name" placeholder="name"><br>
-    <textarea style="width: 35%; height:100%; display: inline-block;"name="description" cols="5"rows="5" placeholder="clothing description"></textarea><br>
-    <input type="text" name="shortDescription" placeholder="shortDescription"><br>
-    <input type="number" name="quantity" placeholder="quantity"><br>
-    <input type="number" name="price" placeholder="price in USD"><br>
-    <input type="file" name="image" placeholder="insert image url"><br>
-    <label for="shipping">add a shipping date: </label>
-    <input type="date" name="date" placeholder="add a shipping date"><br>
+    <input class="sellFormField" id="name" type="text" name="name" placeholder="name"><br>
+    <textarea class="sellFormField" id="description" name="description" cols="5"rows="5" placeholder="item description"></textarea><br>
+    <input class="sellFormField" id="shortDescription" type="text" name="shortDescription" placeholder="Caption"><br>
+    <input class="sellFormField" id="quantity" type="number" name="quantity" placeholder="quantity"><br>
+    <input class="sellFormField" id="price" type="number" name="price" placeholder="price in USD"><br>
+    <input class="sellFormField" id="image" type="file" name="image" placeholder="insert image url"><br>
+    <label class="sellFormField" id="shippingLabel" for="shipping">add a shipping date: </label>
+    <input class="sellFormField" id="date" type="date" name="date" placeholder="add a shipping date"><br>
     <p> Please specify all the sections that are applicable to your clothing item. This ensures that your item reaches the correct target audience</p>
     {%for section in sections%}
-    <input type="checkbox" name="sections" value="{{section}}"><label>{{section }} section</label><br>
+    <input id="checkbox" type="checkbox" name="sections" value="{{section}}"><label>{{section }} section</label><br>
     {%endfor%}
     <input id="submit" type="submit" value="submit">
 </form>
