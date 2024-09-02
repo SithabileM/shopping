@@ -1,0 +1,24 @@
+#productImage{
+    width:400px; 
+    height:400px;
+}
+
+#Reviews{
+    width: 50%;
+    border-radius: 0 15% 15% 0;
+    background-color: rgb(252, 142, 160);
+    margin-bottom: 5%;
+}
+
+#userReview{
+    padding-top: 2%;
+    padding-left: 2%;
+    margin-left: 2%;
+    background-color: rgb(241, 246, 247);
+    width: 41%;
+    margin-bottom: 10%;
+}
+
+#addReviewInput{
+    margin-bottom: 2%;
+}

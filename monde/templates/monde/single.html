@@ -1,5 +1,10 @@
 {%extends "monde/layout.html"%}
 
+{%block head%}
+{%load static%}
+<link rel="stylesheet" type="text/css" href="{%static "css/single.css"%}">
+{%endblock%}
+
 {%block body%}
 </form>
 {%if isSeller%}
@@ -14,7 +19,7 @@
 {%endif%}
 <br>
 
-<img id="product-image" src="{{image.url}}" style="width:400px; height:400px;">
+<img id="productImage" src="{{image.url}}">
 <h2 id="short-description">{{shortDescription}}</h2>
 <pre>{{description}}</pre>
 <p>{{name}}</p>
@@ -36,16 +41,16 @@
     <button type="submit" name="submit">Add to cart</button>
 </form>
 
-    <div>
+    <div id="Reviews">
         <h3> Reviews: </h3>
         <form action="addReview" method="post">
             {%csrf_token%}
-            <input type="text"name="userReview" placeholder="Add a review...">
+            <input id="addReviewInput" type="text"name="userReview" placeholder="Add a review...">
             <input type="hidden" name="clothing" value="{{clothing_id}}">
             <input type="submit">
         </form>
         {%for review in reviews%}
-        <div>
+        <div id="userReview">
         <p> {{ review.review}}</P>
         <p>{{review.user }}</p>
         </div>
