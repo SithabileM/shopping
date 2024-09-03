@@ -39,7 +39,7 @@
     <input type="hidden" name="shortDescription" value="{{shortDescription}}">
     <label for="amount">specify the quantity of the item you wamt to purchase: </label>
     <input id="amount" type='number' name="amount" max='{{quantity}}'><br>
-    <button type="submit" name="submit">Add to cart</button>
+    <button id="submit" type="submit" name="submit">Add to cart</button>
 </form>
 </div>
     <div id="Reviews">
@@ -48,7 +48,7 @@
             {%csrf_token%}
             <input id="addReviewInput" type="text"name="userReview" placeholder="Add a review...">
             <input type="hidden" name="clothing" value="{{clothing_id}}">
-            <input type="submit">
+            <input id="addReviewButton" type="submit">
         </form>
         {%for review in reviews%}
         <div id="userReview">

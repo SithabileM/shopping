@@ -34,3 +34,11 @@
     padding-left: 1%;
     display: inline-block;
 }
+
+#submit:hover{
+    background-color: rgb(255,0,150);
+}
+
+#addReviewButton:hover{
+    background-color: rgb(255,0,150);
+}
