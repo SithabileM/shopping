@@ -52,8 +52,11 @@
         </form>
         {%for review in reviews%}
         <div id="userReview">
-        <p> {{ review.review}}</P>
-        <p>{{review.user }}</p>
+        {%if review.review is not None%}
+            <p> {{ review.review}}</P>
+            <p>{{review.user }}</p>
+        {%endif%}
+
         </div>
         {%endfor%}
     </div>

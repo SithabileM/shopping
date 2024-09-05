@@ -121,7 +121,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request,"monde/logout.html")
+    return redirect("login")
 
 def submit(request):
     return render(request,"monde/home.html")
@@ -279,8 +279,10 @@ def review_view(request):
         userReview=request.POST["userReview"]
         clothing=int(request.POST['clothing'])
         clothingInst=ClothingItem.objects.get(id=clothing)
-    Review.objects.create(user=request.user, reviewItem=clothingInst,review=userReview)
+    if userReview != "":
+        Review.objects.create(user=request.user, reviewItem=clothingInst,review=userReview)
     return HttpResponseRedirect("/monde/"+str(clothing))
+   
 
 def sellsManagement(request):
     

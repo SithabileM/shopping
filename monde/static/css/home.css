@@ -60,8 +60,6 @@
 #sell{
     text-decoration: none;
     color: black;
-    padding-left: 90%;
-    
 }
 
 #sell:hover{
@@ -78,4 +76,21 @@
 }
 #cartItem{
     background-color: pink;
+}
+
+#checkout:hover{
+    background-color: rgb(255,0,150);
+}
+
+#logout{
+    text-decoration: none;
+    color:red;
+    margin-right: 0.5%;
+}
+
+#logout:hover{
+    color: black;
+}
+#links{
+    text-align: right;
 }

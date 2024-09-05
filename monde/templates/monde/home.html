@@ -21,7 +21,7 @@
 {%endblock%}
 
 {%block body%}
-<button id="menu-button">Open cart</button><br>
+<button id="menu-button">Cart<i class="fa-solid fa-cart-shopping"></i></button><br>
 <nav id="menu">
     {%for i,v in cart_data.items%}
     <div id="cartItem">
@@ -39,16 +39,19 @@
     <form action="checkout" method="get">
         <input type="hidden" name="cartItems" value="{{cart_data}}">
         <input type="hidden" name="subtotal" value="{{subtotal}}">
-        <input type="submit" value="Proceed to checkout">
+        <input id="checkout" type="submit" value="Proceed to checkout">
     </form>
 </nav>
 
 <main id="main-content">
     <h1 id="welcome">Welcome {{user}}</h1>
+    <div id="links">
+    <a id="logout" href="logout">Logout</a>
     <a id="sell" href="sell">sell Items</a><br>
+    </div>
     <form action='' method="post">
         {% csrf_token %}
-        <input id="search" type="text" name="search" placeholder="Search..."><i class="fa-solid fa-magnifying-glass"></i>
+        <input id="search" type="text" name="search" placeholder="Search..."/>
         <input type="submit" value="Search">
     </form>
 {%if obj%}
