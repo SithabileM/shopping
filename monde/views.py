@@ -6,6 +6,7 @@ from .models import *
 from .form import ClothingForm
 from datetime import date
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Q
 
 def search(searchTerm):
     """generate sections and the data for each section"""
@@ -14,7 +15,7 @@ def search(searchTerm):
     for section in sections:
         #Get the section Id
         sectionId=section.id
-        sectionItems=ClothingItem.objects.filter(clothingSections=sectionId,description__icontains=searchTerm)
+        sectionItems=ClothingItem.objects.filter(Q(description__icontains=searchTerm)|Q(shortDescription__icontains=searchTerm),clothingSections=sectionId,)
         sectionData[section.name]=sectionItems
         
     return sectionData
@@ -52,6 +53,7 @@ class MyCart:
             i.delete()
             i.save()
         self.cart_data={}
+        return
         
 def register(request) :
     form=UserCreationForm()
@@ -241,9 +243,9 @@ def checkout(request):
         return HttpResponse("Insufficient Balance: You have insufficient funds to proceed with the payments")
     #get the submitted cart items
     cart=MyCart()
+    
     cartItems=cart.getCart(request.user)
-    
-    
+    #cartItems=CartItems.objects.filter(user=request.user)
     for i in cartItems:
         #decrease each items quantity
         itemToDecrease=ClothingItem.objects.get(image=i)
@@ -267,10 +269,13 @@ def checkout(request):
             )
         
     #clear the users cart
-    if len(cart.items)==0:
+    if not cartItems:
         return HttpResponse("Oops! It looks like your cart is empty")
-    cart.deleteCart(request.user)
+    myCart=CartItems.objects.filter(user=request.user)
+    for item in myCart:
+        item.delete()
     #display a success message
+    cartItems={}
     return HttpResponse("Thank You for shopping with Monde :)")
 
 def review_view(request):
@@ -302,9 +307,17 @@ def sellsManagement(request):
             else:
                 status="Delivered"
             Deliveries.add(str(clothingId))
-            tableContent[j.user]=[str(j.clothing_item),str(clothingId),str(status)]
+            tableContent[str(clothingId) + str(j.user)]=[str(j.user),str(j.clothing_item),str(clothingId),str(status), str(j.amount_purchased)]
                    
     return render(request,"monde/sellsManagement.html",{
        "sellsTableContent":tableContent,
-       "DeliveriesButtonsContent": Deliveries
+       "DeliveriesButtonsContent": Deliveries,
     })
+    
+def deliver(request):
+    item=request.GET.get("item")
+    itemsToDeliver=UserOwnedItems.objects.filter(clothing_item=int(item), status=False)
+    for item in itemsToDeliver:
+        item.status=True
+        item.save()
+    return HttpResponse()

@@ -60,6 +60,10 @@ class TestUrls(SimpleTestCase):
             url=reverse("register")
             self.assertEqual(resolve(url).func,register)
             
+        def test_deliver_url_resolves(self):
+            url=reverse("deliver")
+            self.assertEqual(resolve(url).func,deliver)
+            
         
             
         

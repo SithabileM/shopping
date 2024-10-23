@@ -3,28 +3,31 @@
 {%block body%}
 <body>
 <h1>Sells</h1>
+<div>
 <table>
     <tr>
         <th>Customer</th>
         <th>Item</th>
         <th>Item Id</th>
         <th>Status</th>
+        <th>amount</th>
         
     </tr>
     {%for i,v in sellsTableContent.items%}
     <tr>
-        <td><p>{{i}}</p></td>
         {%for k in v%}
             <td><p>{{k}}</p></td>
         {%endfor%}
-    {%endfor%}
     </tr>
+    {%endfor%}
 </table>
+</div>
+<h2> Deliver items: </h2>
 {%for d in DeliveriesButtonsContent%}
-<form method="post" action="Deliver">
+<form method="get" action="deliver">
     {%csrf_token%}
-    <input type="hidden" value={{d}}>
-    <input type='submit' value="Deliver item {{d}}">
+    <input name="item" type="hidden" value={{d}}>
+    <input name="item" type='submit' value="{{d}}">
 </form>
 {%endfor%}
 <button>Deliver all</button>
