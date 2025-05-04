@@ -26,7 +26,7 @@
     {%for i,v in cart_data.items%}
     <div id="cartItem">
     <img id="navImage"src="/media/{{i}}" alt="cart item">
-    <form method="get" action="remove">
+    <form method="POST" action="remove">
         <input type="hidden" name="item" value="{{i}}">
         <input type="submit" value="Remove from cart">
     </form>
@@ -36,7 +36,7 @@
     </div>
     {%endfor%}
     <p>{{subtotal}}</p>
-    <form action="checkout" method="get">
+    <form action="checkout" method="POST">
         <input type="hidden" name="cartItems" value="{{cart_data}}">
         <input type="hidden" name="subtotal" value="{{subtotal}}">
         <input id="checkout" type="submit" value="Proceed to checkout">

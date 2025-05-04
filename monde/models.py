@@ -49,7 +49,7 @@ class UserProfile(models.Model):
     owned_items=models.ManyToManyField(ClothingItem,blank=True,related_name='owners',related_query_name='owner')
     cart_items=models.ManyToManyField(ClothingItem,blank=True)
     inventory=models.ManyToManyField(ClothingItem,blank=True,related_name="stock")
-    bank_balance=models.FloatField(default=round(random.uniform(1.00,1000.00),2))
+    bank_balance=models.FloatField(default=0)
     
 class CartItems(models.Model):
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)

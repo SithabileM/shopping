@@ -7,6 +7,7 @@ from .form import ClothingForm
 from datetime import date
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
+from django.views.decorators.http import require_POST
 
 def search(searchTerm):
     """generate sections and the data for each section"""
@@ -171,11 +172,11 @@ def single_item(request,clothing_id):
     items=ClothingItem.objects.all()
     
     #determine whether the current user is the seller of the item
-    isSeller=None
+    isSeller=False
     for item in items:
         if item.id == int(clothing_id):
             #Determine whether the currently selected item was sold by currently logged in user
-            isSeller=UserProfile.objects.filter(user=request.user,inventory=item)
+            isSeller=UserProfile.objects.filter(user=request.user.id,inventory=item)
             if isSeller:
                 isSeller=True
             #get all reviews
@@ -220,9 +221,10 @@ def restock(request):
     return redirect("index")
 
 #remove an item from the current users cart
+@require_POST
 def remove_from_cart(request):
     #get the key of the item to be removed
-    myItem=request.GET.get("item")
+    myItem=request.POST.get("item")
     cart=CartItems.objects.filter(user=request.user)
     for i in cart:
         #check if child object is not none
@@ -243,9 +245,7 @@ def checkout(request):
         return HttpResponse("Insufficient Balance: You have insufficient funds to proceed with the payments")
     #get the submitted cart items
     cart=MyCart()
-    
     cartItems=cart.getCart(request.user)
-    #cartItems=CartItems.objects.filter(user=request.user)
     for i in cartItems:
         #decrease each items quantity
         itemToDecrease=ClothingItem.objects.get(image=i)
@@ -254,7 +254,6 @@ def checkout(request):
         #decrease the current users bank balance by the amount
         user=UserProfile.objects.get(user=request.user)
         user.bank_balance -= float(cartItems[i][1])
-        print(cartItems[i][1])
         #increase the seller of i bank balance by the price
         itemToDecreaseId=itemToDecrease.id
         seller=UserProfile.objects.get(inventory=itemToDecreaseId)
@@ -267,7 +266,6 @@ def checkout(request):
             amount_purchased=int(cartItems[i][0]),
             status=False
             )
-        
     #clear the users cart
     if not cartItems:
         return HttpResponse("Oops! It looks like your cart is empty")
@@ -290,10 +288,8 @@ def review_view(request):
    
 
 def sellsManagement(request):
-    
     myUser=UserProfile.objects.get(user=request.user.id)
     inventory=myUser.inventory.all()
-    
     tableContent={}
     Deliveries=set()
     TotalAmount={}
@@ -308,7 +304,7 @@ def sellsManagement(request):
                 status="Delivered"
             Deliveries.add(str(clothingId))
             tableContent[str(clothingId) + str(j.user)]=[str(j.user),str(j.clothing_item),str(clothingId),str(status), str(j.amount_purchased)]
-                   
+                    
     return render(request,"monde/sellsManagement.html",{
        "sellsTableContent":tableContent,
        "DeliveriesButtonsContent": Deliveries,
