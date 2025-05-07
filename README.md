@@ -43,7 +43,7 @@ python manage.py runserver
 
 ## Screenshots
 ![Screenshot (67)](https://github.com/user-attachments/assets/b971945a-948e-421e-8d64-3660e51a85c8)
-![Screenshot (68)](https://github.com/user-attachments/assets/89a57745-94ab-40d1-8282-2f9d5b6
+![Screenshot (68)](https://github.com/user-attachments/assets/3b8a6c2c-3b7c-41ee-bc75-75b9e2a7646f)
 ![Screenshot (69)](https://github.com/user-attachments/assets/dc21ee4f-836e-498f-8cf1-64e502333f3c)
 7b39c)
 
