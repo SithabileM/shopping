@@ -62,6 +62,7 @@ def register(request) :
         form=UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('login')
     context={"form":form}
     return render(request,"monde/register.html",context)
            
@@ -278,12 +279,13 @@ def checkout(request):
 
 def review_view(request):
     """Get a review from the items page and put it up in the admin page"""
+    currentUser=request.user
     if request.method=="POST":
         userReview=request.POST["userReview"]
         clothing=int(request.POST['clothing'])
         clothingInst=ClothingItem.objects.get(id=clothing)
     if userReview != "":
-        Review.objects.create(user=request.user, reviewItem=clothingInst,review=userReview)
+        Review.objects.create(user=currentUser, reviewItem=clothingInst,review=userReview)
     return HttpResponseRedirect("/monde/"+str(clothing))
    
 
@@ -300,11 +302,12 @@ def sellsManagement(request):
             TotalAmount[clothingId]= j.clothing_item.price*j.clothing_item.quantity
             if j.status is False:
                 status="Pending..."
+                Deliveries.add(str(clothingId))
+                tableContent[str(clothingId) + str(j.user)]=[str(j.user),str(j.clothing_item),str(clothingId),str(status), str(j.amount_purchased)]
+                    
             else:
                 status="Delivered"
-            Deliveries.add(str(clothingId))
-            tableContent[str(clothingId) + str(j.user)]=[str(j.user),str(j.clothing_item),str(clothingId),str(status), str(j.amount_purchased)]
-                    
+          
     return render(request,"monde/sellsManagement.html",{
        "sellsTableContent":tableContent,
        "DeliveriesButtonsContent": Deliveries,
@@ -313,6 +316,7 @@ def sellsManagement(request):
 def deliver(request):
     item=request.GET.get("item")
     itemsToDeliver=UserOwnedItems.objects.filter(clothing_item=int(item), status=False)
+    #set status to True
     for item in itemsToDeliver:
         item.status=True
         item.save()
