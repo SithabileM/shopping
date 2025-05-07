@@ -11,17 +11,23 @@ Cultured user experience that does not prioritize simplicity or intuitive design
 
 This application was built to address these gaps by offering a platform tailored to women - with carefully categorized products, a minimalist design, and features that make shopping efficient and enjoyable.
 
-##Features
+## Features
 Product listing
+
 Add to cart and quantity updates
+
 Secure user authentication
+
 Admin dashboard for managing inventory and orders
 
 ## Technologies Used
 
 Backend: Django
+
 Frontend: HTML, CSS, Javascript
+
 Database: SQLite(can be upgraded to PostgreSQL)
+
 Authentication: Django's built-in user system
 
 ## Installation
@@ -43,7 +49,9 @@ python manage.py runserver
 
 ## Screenshots
 ![Screenshot (67)](https://github.com/user-attachments/assets/b971945a-948e-421e-8d64-3660e51a85c8)
-![Screenshot (68)](https://github.com/user-attachments/assets/3b8a6c2c-3b7c-41ee-bc75-75b9e2a7646f)
+
+![Screenshot (70)](https://github.com/user-attachments/assets/ed4a5dce-8d98-4db1-bce2-bfc5ac526a2e)
+
 ![Screenshot (69)](https://github.com/user-attachments/assets/dc21ee4f-836e-498f-8cf1-64e502333f3c)
 7b39c)
 
