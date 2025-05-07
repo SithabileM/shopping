@@ -47,11 +47,14 @@ python manage.py createsuperuser
 ### Run the development server
 python manage.py runserver
 
+## Testing
+This project currently includes unit tests for models, views, and url configurations. Functional(end-to-end) tests are not yet implemented but are planned for a future update to improve full user-flow coverage.
+
 ## Screenshots
 ![Screenshot (67)](https://github.com/user-attachments/assets/b971945a-948e-421e-8d64-3660e51a85c8)
 
 ![Screenshot (70)](https://github.com/user-attachments/assets/ed4a5dce-8d98-4db1-bce2-bfc5ac526a2e)
 
 ![Screenshot (69)](https://github.com/user-attachments/assets/dc21ee4f-836e-498f-8cf1-64e502333f3c)
-7b39c)
+
 
