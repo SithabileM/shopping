@@ -1,5 +1,8 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+import os
 
 urlpatterns = [
     path('',views.index,name='index'),
@@ -17,3 +20,6 @@ urlpatterns = [
     path("register",views.register,name="register"),
     path("deliver", views.deliver,name="deliver")
 ]
+
+if settings.DEBUG or os.getenv("RAILWAY_MEDIA_SERVE")=="True":
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

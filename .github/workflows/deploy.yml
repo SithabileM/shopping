@@ -14,6 +14,7 @@ jobs:
       DJANGO_SECRET_KEY: ${{secrets.DJANGO_SECRET_KEY}}
       DEBUG: 'False'
       CSRF_TRUSTED_ORIGINS: 'https://shopping-production-aa1b.up.railway.app'
+      RAILWAY_MEDIA_SERVE: 'True'
 
     steps:
     - name: Checkout code
