@@ -13,6 +13,7 @@ jobs:
     env:
       DJANGO_SECRET_KEY: ${{secrets.DJANGO_SECRET_KEY}}
       DEBUG: 'False'
+      CSRF_TRUSTED_ORIGINS: 'https://shopping-production-aa1b.up.railway.app'
 
     steps:
     - name: Checkout code
