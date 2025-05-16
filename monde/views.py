@@ -8,6 +8,10 @@ from datetime import date
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from django.views.decorators.http import require_POST
+from imagekitio import ImageKit
+import os
+from django.conf import settings
+
 
 def search(searchTerm):
     """generate sections and the data for each section"""
@@ -130,6 +134,12 @@ def logout_view(request):
 def submit(request):
     return render(request,"monde/home.html")
 
+imageKit = ImageKit(
+    private_key= os.environ.get('IMAGEKIT_PRIVATE_KEY'),
+    public_key=os.environ.get('IMAGEKIT_PUBLIC_KEY'),
+    url_endpoint=os.environ.get('IMAGEKIT_URL_ENDPOINT')
+)
+
 def sell_page(request):
     year=date.today().year
     sectionData=get_sections()
@@ -145,6 +155,15 @@ def sell_page(request):
         price=request.POST["price"]
         image=request.FILES["image"]
         sections=request.POST.getlist("sections")
+        upload= imageKit.upload_file(
+            file=image,
+            file_name=image.name,
+            options={
+                "folder": "/images/"
+            }
+        )
+        
+        image_url = upload.get("response",{}.get("url"))
         
         current = ClothingItem.objects.create(name=name)
         current.description=description
@@ -152,6 +171,7 @@ def sell_page(request):
         current.quantity=quantity
         current.price=price
         current.image=image
+        current.image_url=image_url
         for i in sections:
             sec=Sections.objects.get(name=i)
             secId=sec.id

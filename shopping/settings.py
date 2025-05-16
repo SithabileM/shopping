@@ -142,6 +142,10 @@ if DEBUG:
     MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 """
 
+IMAGEKIT_PUBLIC_KEY=os.environ.get('IMAGEKIT_PUBLIC_KEY')
+IMAGEKIT_PRIVATE_KEY=os.environ.get('IMAGEKIT_PRIVATE_KEY')
+IMAGEKIT_URL_ENDPOINT=os.environ.get('IMAGEKIT_URL_ENDPOINT')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
