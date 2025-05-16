@@ -152,7 +152,7 @@ def sell_page(request):
         shortDescription=request.POST["shortDescription"]
         quantity=request.POST["quantity"]
         price=request.POST["price"]
-        image=request.FILES["image"]
+        image=request.FILES.get["image"]
         sections=request.POST.getlist("sections")
         upload= imagekit.upload_file(
             file=image,
