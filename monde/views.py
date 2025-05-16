@@ -12,7 +12,6 @@ from imagekitio import ImageKit
 import os
 from django.conf import settings
 
-
 def search(searchTerm):
     """generate sections and the data for each section"""
     sections=Sections.objects.all()
@@ -134,14 +133,14 @@ def logout_view(request):
 def submit(request):
     return render(request,"monde/home.html")
 
-imageKit = ImageKit(
-    private_key= os.environ.get('IMAGEKIT_PRIVATE_KEY'),
-    public_key=os.environ.get('IMAGEKIT_PUBLIC_KEY'),
-    url_endpoint=os.environ.get('IMAGEKIT_URL_ENDPOINT')
-)
-
 def sell_page(request):
-    year=date.today().year
+    
+    imagekit = ImageKit(
+    private_key= settings.IMAGEKIT_PRIVATE_KEY,
+    public_key=settings.IMAGEKIT_PUBLIC_KEY,
+    url_endpoint=settings.IMAGEKIT_URL_ENDPOINT
+)
+    
     sectionData=get_sections()
     sections=[]
     
@@ -155,7 +154,7 @@ def sell_page(request):
         price=request.POST["price"]
         image=request.FILES["image"]
         sections=request.POST.getlist("sections")
-        upload= imageKit.upload_file(
+        upload= imagekit.upload_file(
             file=image,
             file_name=image.name,
             options={
