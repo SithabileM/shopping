@@ -162,7 +162,8 @@ def sell_page(request):
             }
         )
         
-        image_url = upload.get("response",{}.get("url"))
+        image_url = upload.get("response", {}).get("url")
+
         
         current = ClothingItem.objects.create(name=name)
         current.description=description
