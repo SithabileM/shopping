@@ -189,7 +189,7 @@ def single_item(request,clothing_id):
                 "rating":item.rating,
                 "quantity":item.quantity,
                 "price":item.price,
-                "image":item.image,
+                "image":item.image_url,
                 "clothing_id":clothing_id,
                 "isSeller":isSeller,
                 "reviews":reviews,
