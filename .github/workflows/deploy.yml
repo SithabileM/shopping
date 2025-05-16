@@ -15,6 +15,9 @@ jobs:
       DEBUG: 'False'
       CSRF_TRUSTED_ORIGINS: 'https://shopping-production-aa1b.up.railway.app'
       RAILWAY_MEDIA_SERVE: 'True'
+      IMAGEKIT_PUBLIC_KEY: ${{secrets.IMAGEKIT_PUBLIC_KEY}}
+      IMAGEKIT_PRIVATE_KEY: ${{secrets.IMAGEKIT_PRIVATE_KEY}}
+      IMAGEKIT_URL_ENDPOINT: ${{secrets.IMAGEKIT_URL_ENDPOINT}}
 
     steps:
     - name: Checkout code
