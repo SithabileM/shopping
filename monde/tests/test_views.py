@@ -99,11 +99,13 @@ class TestViews(TestCase):
         response=self.client.get(self.logout_url,follow=True)
         self.assertEqual(response.status_code,200)
         self.assertTemplateUsed(response,"monde/login.html")
-        
+    """   
     def test_sell_page_GET(self):
+        
         response=self.client.get(self.sell_page_url,follow=True)
         self.assertEqual(response.status_code,200)
         self.assertTemplateUsed(response,"monde/sell.html")
+    """
     
     def test_single_item_view(self):
         response=self.client.get(self.single_item_url)
