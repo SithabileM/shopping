@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User,AbstractUser,Permission,Group
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime, timedelta
-import random
+from django import forms
 
 
 #get current date
@@ -30,6 +30,7 @@ class ClothingItem(models.Model):
     shippingDate=models.DateField(default=monthFromNow)
     image=models.ImageField(upload_to='images/',default="OIP.jpg")
     clothingSections=models.ManyToManyField(Sections,max_length=100)
+    image_url = models.URLField(blank=True, null=True)
     
     
     def __str__(self):
@@ -64,3 +65,11 @@ class Review(models.Model):
     
     class Meta:
         ordering=['user','reviewItem','review','-created_at']
+        
+#Exclude image_url from admin   
+class ClothingItemAdminForm(forms.ModelForm):
+    image_file= forms.ImageField(required=False)
+    
+    class Meta:
+        model = ClothingItem
+        fields= ['name','image_file']

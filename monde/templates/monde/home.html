@@ -67,7 +67,7 @@
 <div id="sectionContent">
     {%for item in secItems%}
         <div id="sectionItems"style="display: inline-block;">
-            <a href="{{item.id}}" ? "clothing_id"={{item.id}}><img id="mainPageImages"src="{{item.image.url}}" alt="{{item.name}}"></a>
+            <a href="{{item.id}}" ? "clothing_id"={{item.id}}><img id="mainPageImages"src="{{item.image_url}}" alt="{{item.name}}"></a>
             <p>{{item.shortDescription}}</p> 
             <p>${{item.price}}</p>
         </div>
