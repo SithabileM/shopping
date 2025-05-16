@@ -159,14 +159,8 @@ def sell_page(request):
             file_name=image.name,
         )
         
-    if upload.get("response"):
         image_url = upload["response"]["url"]
-    else:
-        # Handle errors gracefully
-        error = upload.get("error")
-       
 
-        
         current = ClothingItem.objects.create(name=name)
         current.description=description
         current.shortDescription=shortDescription
