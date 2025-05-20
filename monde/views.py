@@ -148,17 +148,24 @@ def sell_page(request):
         shortDescription=request.POST["shortDescription"]
         quantity=request.POST["quantity"]
         price=request.POST["price"]
-        uploaded_file = request.FILES.get("image")
-        image_url = upload_image_to_supabase(uploaded_file)
+        
+        image_file = request.FILES.get("image")
+        if image_file:
+            image_url = upload_image_to_supabase(image_file)
+        else:
+            image_url = None
 
         sections=request.POST.getlist("sections")
 
-        current = ClothingItem.objects.create(name=name)
-        current.description=description
-        current.shortDescription=shortDescription
-        current.quantity=quantity
-        current.price=price
-        current.image=image_url
+        current = ClothingItem.objects.create(
+            name=name,
+            description=description,
+            shortDescription=shortDescription,
+            quantity=quantity,
+            price=price,
+            image=image_url     
+            )
+
        
         for i in sections:
             sec=Sections.objects.get(name=i)
@@ -330,14 +337,4 @@ def deliver(request):
         item.save()
     return HttpResponse()
 
-
-def upload_image(request):
-    if request.method == 'POST' and request.FILES.get('image'):
-        image = request.FILES['image']
-        try:
-            public_url = upload_image_to_supabase(image)
-            # Save the public URL to your model or return in response
-            return JsonResponse({"url": public_url})
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
 
