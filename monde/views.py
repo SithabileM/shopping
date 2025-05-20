@@ -13,6 +13,7 @@ import os
 from django.conf import settings
 from .supabase_utils import upload_image_to_supabase
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 def search(searchTerm):
     """generate sections and the data for each section"""
@@ -135,6 +136,7 @@ def logout_view(request):
 def submit(request):
     return render(request,"monde/home.html")
 
+@login_required
 def sell_page(request):
     
     sectionData=get_sections()
