@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -142,9 +144,10 @@ if DEBUG:
     MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 """
 
-IMAGEKIT_PUBLIC_KEY=os.environ.get('IMAGEKIT_PUBLIC_KEY')
-IMAGEKIT_PRIVATE_KEY=os.environ.get('IMAGEKIT_PRIVATE_KEY')
-IMAGEKIT_URL_ENDPOINT=os.environ.get('IMAGEKIT_URL_ENDPOINT')
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")  # Use service role for server-side ops
+SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

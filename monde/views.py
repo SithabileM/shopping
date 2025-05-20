@@ -11,6 +11,8 @@ from django.views.decorators.http import require_POST
 from imagekitio import ImageKit
 import os
 from django.conf import settings
+from .supabase_utils import upload_image_to_supabase
+from django.http import JsonResponse
 
 def search(searchTerm):
     """generate sections and the data for each section"""
@@ -154,16 +156,6 @@ def sell_page(request):
         price=request.POST["price"]
         image=request.FILES.get["image"]
         sections=request.POST.getlist("sections")
-        upload= imagekit.upload_file(
-            file=image,
-            file_name=image.name,
-        )
-        
-        if "response" in upload and "url" in upload["response"]:
-            image_url = upload["response"]["url"]
-        else:
-            image_url = None  # or some default
-            print("Upload failed:", upload)
 
         current = ClothingItem.objects.create(name=name)
         current.description=description
@@ -171,7 +163,7 @@ def sell_page(request):
         current.quantity=quantity
         current.price=price
         current.image=image
-        current.image_url=image_url
+       
         for i in sections:
             sec=Sections.objects.get(name=i)
             secId=sec.id
@@ -341,3 +333,15 @@ def deliver(request):
         item.status=True
         item.save()
     return HttpResponse()
+
+
+def upload_image(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        image = request.FILES['image']
+        try:
+            public_url = upload_image_to_supabase(image)
+            # Save the public URL to your model or return in response
+            return JsonResponse({"url": public_url})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
+

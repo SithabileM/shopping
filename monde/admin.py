@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import ClothingItem, User,UserProfile, Sections, UserOwnedItems,CartItems,Review, ClothingItemAdminForm
-from .utils.imagekit import upload_to_imagekit
 
 class UserProfileInline(admin.StackedInline):
     model=UserProfile
@@ -13,17 +12,9 @@ class UserAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     ordering=('-created_at',)
     
-class ClothingItemAdmin(admin.ModelAdmin):
-    def save_model(self, request, obj, form, change):
-        form= ClothingItemAdminForm
-        if 'image_file' in request.FILES:
-            image= request.FILES['image_file']
-            response=upload_to_imagekit(image)
-            obj.image_url=response.get('url')
-            super().save_model(request, obj, form, change)
     
 # Register your models here.
-admin.site.register(ClothingItem, ClothingItemAdmin)
+admin.site.register(ClothingItem)
 admin.site.unregister(User)
 admin.site.register(User,UserAdmin)
 admin.site.register(UserOwnedItems)
