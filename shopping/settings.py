@@ -143,10 +143,11 @@ if DEBUG:
     MEDIA_URL='/media/'
     MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 """
-
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")  # Use service role for server-side ops
 SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
+
+
 
 
 # Default primary key field type
