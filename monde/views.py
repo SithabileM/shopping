@@ -137,12 +137,6 @@ def submit(request):
 
 def sell_page(request):
     
-    imagekit = ImageKit(
-    private_key= settings.IMAGEKIT_PRIVATE_KEY,
-    public_key=settings.IMAGEKIT_PUBLIC_KEY,
-    url_endpoint=settings.IMAGEKIT_URL_ENDPOINT
-)
-    
     sectionData=get_sections()
     sections=[]
     
@@ -154,7 +148,9 @@ def sell_page(request):
         shortDescription=request.POST["shortDescription"]
         quantity=request.POST["quantity"]
         price=request.POST["price"]
-        image=request.FILES.get["image"]
+        uploaded_file = request.FILES.get("image")
+        image_url = upload_image_to_supabase(uploaded_file)
+
         sections=request.POST.getlist("sections")
 
         current = ClothingItem.objects.create(name=name)
@@ -162,7 +158,7 @@ def sell_page(request):
         current.shortDescription=shortDescription
         current.quantity=quantity
         current.price=price
-        current.image=image
+        current.image=image_url
        
         for i in sections:
             sec=Sections.objects.get(name=i)
