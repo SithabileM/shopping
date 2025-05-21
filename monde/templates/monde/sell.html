@@ -10,14 +10,14 @@
 <h3 id="itemHeader"> Fill in the following: </h3>
 <form action='' method="post" enctype="multipart/form-data">
     {%csrf_token%}
-    <input class="sellFormField" id="name" type="text" name="name" placeholder="name"><br>
+    <input class="sellFormField" id="name" type="text" name="name" placeholder="name" required><br>
     <textarea class="sellFormField" id="description" name="description" cols="5"rows="5" placeholder="item description"></textarea><br>
     <input class="sellFormField" id="shortDescription" type="text" name="shortDescription" placeholder="Caption"><br>
-    <input class="sellFormField" id="quantity" type="number" name="quantity" placeholder="quantity"><br>
-    <input class="sellFormField" id="price" type="number" name="price" placeholder="price in USD"><br>
-    <input class="sellFormField" id="image" type="file" name="image" placeholder="insert image url"><br>
+    <input class="sellFormField" id="quantity" type="number" name="quantity" placeholder="quantity" required><br>
+    <input class="sellFormField" id="price" type="number" name="price" placeholder="price in USD" required><br>
+    <input class="sellFormField" id="image" type="file" name="image" placeholder="insert image url" ><br>
     <label class="sellFormField" id="shippingLabel" for="shipping">add a shipping date: </label>
-    <input class="sellFormField" id="date" type="date" name="date" placeholder="add a shipping date"><br>
+    <input class="sellFormField" id="date" type="date" name="date" placeholder="add a shipping date" required><br>
     <p> Please specify all the sections that are applicable to your clothing item. This ensures that your item reaches the correct target audience</p>
     {%for section in sections%}
     <input id="checkbox" type="checkbox" name="sections" value="{{section}}"><label>{{section }} section</label><br>
