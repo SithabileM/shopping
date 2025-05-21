@@ -172,22 +172,21 @@ def sell_page(request):
                 shippingDate=shippingDate,
                 rating=rating,     
                 )
-            current.save()
        
             for i in sections:
                 sec=Sections.objects.get(name=i)
                 secId=sec.id
                 current.clothingSections.add(secId)
-                current.save()
+            current.save()
                 
     except Exception as e:
         print(f"[ERROR] {e}")
         return JsonResponse({"success": False, "error": str(e)}, status=500)
         
         #add the item to inventory
-        user=UserProfile.objects.get(user=request.user)
-        user.inventory.add(current.id)
-        user.save()
+    user=UserProfile.objects.get(user=request.user)
+    user.inventory.add(current.id)
+    user.save()
         
     return(render(request,"monde/sell.html",{
         "sections":sections,
