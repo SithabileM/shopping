@@ -198,12 +198,12 @@ def sell_page(request):
             user=UserProfile.objects.get(user=request.user)
             user.inventory.add(current.id)
             user.save()
-                
+            return redirect("index")
         except Exception as e:
             print(f"[ERROR] {e}")
             return JsonResponse({"success": False, "error": str(e)}, status=500)
         
-    return redirect("index")
+    return render(request,"monde/sell.html",{sections: sectionData})
 
 def single_item(request,clothing_id):
     clothing_id=str(clothing_id).replace("{%url ","")
