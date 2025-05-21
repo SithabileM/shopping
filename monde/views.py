@@ -203,7 +203,7 @@ def sell_page(request):
             print(f"[ERROR] {e}")
             return JsonResponse({"success": False, "error": str(e)}, status=500)
         
-    return render(request,"monde/sell.html",{sections: sectionData})
+    return render(request,"monde/sell.html",{"sections": sectionData})
 
 def single_item(request,clothing_id):
     clothing_id=str(clothing_id).replace("{%url ","")
