@@ -16,7 +16,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 def search(searchTerm):
-    """generate sections and the data for each section"""
+    #generate sections and the data for each section
     sections=Sections.objects.all()
     sectionData={}
     for section in sections:
@@ -28,7 +28,7 @@ def search(searchTerm):
     return sectionData
     
 def get_sections():
-    """generate sections and the data for each section"""
+    #generate sections and the data for each section
     sections=Sections.objects.all()
     sectionData={}
     for section in sections:
@@ -68,6 +68,7 @@ def register(request) :
         form=UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            UserProfile.objects.create(user=request.user)
             return redirect('login')
     context={"form":form}
     return render(request,"monde/register.html",context)
