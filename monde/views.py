@@ -139,13 +139,14 @@ def submit(request):
 @login_required
 def sell_page(request):
     
-    try: 
-        sectionData=get_sections()
-        sections=[]
+    sectionData=get_sections()
+    sections=[]
     
-        for i,v in sectionData.items():
-            sections+=[i]
-        if request.method=="POST":
+    for i,v in sectionData.items():
+        sections+=[i]
+     
+    if request.method=="POST":
+        try:
             name=request.POST.get("name")
             description=request.POST.get("description")
             shortDescription=request.POST.get("shortDescription")
@@ -179,19 +180,19 @@ def sell_page(request):
                 current.clothingSections.add(secId)
             current.save()
             
-        #add the item to inventory
-        user=UserProfile.objects.get(user=request.user)
-        user.inventory.add(current.id)
-        user.save()
-                
-    except Exception as e:
-        print(f"[ERROR] {e}")
-        return JsonResponse({"success": False, "error": str(e)}, status=500)
+            #add the item to inventory
+            user=UserProfile.objects.get(user=request.user)
+            user.inventory.add(current.id)
+            user.save()
         
-        #add the item to inventory
-    user=UserProfile.objects.get(user=request.user)
-    user.inventory.add(current.id)
-    user.save()
+            #add the item to inventory
+            user=UserProfile.objects.get(user=request.user)
+            user.inventory.add(current.id)
+            user.save()
+                
+        except Exception as e:
+            print(f"[ERROR] {e}")
+            return JsonResponse({"success": False, "error": str(e)}, status=500)
         
     return(render(request,"monde/sell.html",{
         "sections":sections,
