@@ -178,6 +178,11 @@ def sell_page(request):
                 secId=sec.id
                 current.clothingSections.add(secId)
             current.save()
+            
+        #add the item to inventory
+        user=UserProfile.objects.get(user=request.user)
+        user.inventory.add(current.id)
+        user.save()
                 
     except Exception as e:
         print(f"[ERROR] {e}")
