@@ -17,7 +17,7 @@
     <input class="sellFormField" id="price" type="number" name="price" placeholder="price in USD" required><br>
     <input class="sellFormField" id="image" type="file" name="image" placeholder="insert image url" ><br>
     <label class="sellFormField" id="shippingLabel" for="shipping">add a shipping date: </label>
-    <input class="sellFormField" id="date" type="date" name="date" placeholder="add a shipping date" required><br>
+    <input class="sellFormField" id="date" type="date" name="shippingDate" placeholder="add a shipping date" required><br>
     <p> Please specify all the sections that are applicable to your clothing item. This ensures that your item reaches the correct target audience</p>
     {%for section in sections%}
     <input id="checkbox" type="checkbox" name="sections" value="{{section}}"><label>{{section }} section</label><br>
