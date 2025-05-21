@@ -23,8 +23,11 @@ def upload_image_to_supabase(file, folder="uploads"):
 
     )
 
-    if res.get("error"):
-        raise Exception(f"Upload failed: {res['error']['message']}")
+    if not res:
+        raise Exception("Upload failed: No response from Supabase")
+    elif hasattr(res, "error") and res.error:
+        raise Exception(f"Upload failed: {res.error.message}")
+
 
     return supabase.storage.from_(settings.SUPABASE_BUCKET).get_public_url(filename)
 
