@@ -151,7 +151,7 @@ def sell_page(request):
             shortDescription=request.POST["shortDescription"]
             quantity=request.POST["quantity"]
             price=request.POST["price"]
-            shippingDate=request.POST["shippingDate"]
+            shippingDate=request.POST.get("shippingDate")
             rating=request.POST["rating"]
         
             image_file = request.FILES.get("image")
