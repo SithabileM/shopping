@@ -67,8 +67,8 @@ def register(request) :
     if request.method=="POST":
         form=UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            UserProfile.objects.create(user=request.user)
+            user=form.save()
+            UserProfile.objects.create(user=user)
             return redirect('login')
     context={"form":form}
     return render(request,"monde/register.html",context)
