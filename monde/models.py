@@ -53,7 +53,7 @@ class UserProfile(models.Model):
     
 class CartItems(models.Model):
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    item=models.ForeignKey(ClothingItem,null=True,on_delete=models.SET_NULL)
+    item=models.ForeignKey(ClothingItem,null=True,on_delete=models.CASCADE)
     amount=models.IntegerField(default=1,validators=[MinValueValidator(1)])
     
 class Review(models.Model):
