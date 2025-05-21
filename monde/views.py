@@ -146,13 +146,13 @@ def sell_page(request):
         for i,v in sectionData.items():
             sections+=[i]
         if request.method=="POST":
-            name=request.POST["name"]
-            description=request.POST["description"]
-            shortDescription=request.POST["shortDescription"]
-            quantity=request.POST["quantity"]
-            price=request.POST["price"]
+            name=request.POST.get("name")
+            description=request.POST.get("description")
+            shortDescription=request.POST.get("shortDescription")
+            quantity=request.POST.get("quantity")
+            price=request.POST.get("price")
             shippingDate=request.POST.get("shippingDate")
-            rating=request.POST["rating"]
+            rating=request.POST.get("rating")
         
             image_file = request.FILES.get("image")
             if image_file:
