@@ -19,7 +19,8 @@ def upload_image_to_supabase(file, folder="uploads"):
     res = supabase.storage.from_(settings.SUPABASE_BUCKET).upload(
         path=filename,
         file=file_content,
-        file_options={"content-type": content_type}
+        file_options = {"content-type": file.content_type or "application/octet-stream"}
+
     )
 
     if res.get("error"):

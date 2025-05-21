@@ -139,45 +139,50 @@ def submit(request):
 @login_required
 def sell_page(request):
     
-    sectionData=get_sections()
-    sections=[]
+    try: 
+        sectionData=get_sections()
+        sections=[]
     
-    for i,v in sectionData.items():
-        sections+=[i]
-    if request.method=="POST":
-        name=request.POST["name"]
-        description=request.POST["description"]
-        shortDescription=request.POST["shortDescription"]
-        quantity=request.POST["quantity"]
-        price=request.POST["price"]
-        shippingDate=request.POST["shippingDate"]
-        rating=request.POST["rating"]
+        for i,v in sectionData.items():
+            sections+=[i]
+        if request.method=="POST":
+            name=request.POST["name"]
+            description=request.POST["description"]
+            shortDescription=request.POST["shortDescription"]
+            quantity=request.POST["quantity"]
+            price=request.POST["price"]
+            shippingDate=request.POST["shippingDate"]
+            rating=request.POST["rating"]
         
-        image_file = request.FILES.get("image")
-        if image_file:
-            image_url = upload_image_to_supabase(image_file)
-        else:
-            image_url = None
+            image_file = request.FILES.get("image")
+            if image_file:
+                image_url = upload_image_to_supabase(image_file)
+            else:
+                image_url = None
 
-        sections=request.POST.getlist("sections")
+            sections=request.POST.getlist("sections")
 
-        current = ClothingItem.objects.create(
-            name=name,
-            description=description,
-            shortDescription=shortDescription,
-            quantity=quantity,
-            price=price,
-            image=image_url,
-            shippingDate=shippingDate,
-            rating=rating,     
-            )
-        current.save()
+            current = ClothingItem.objects.create(
+                name=name,
+                description=description,
+                shortDescription=shortDescription,
+                quantity=quantity,
+                price=price,
+                image=image_url,
+                shippingDate=shippingDate,
+                rating=rating,     
+                )
+            current.save()
        
-        for i in sections:
-            sec=Sections.objects.get(name=i)
-            secId=sec.id
-            current.clothingSections.add(secId)
-        current.save()
+            for i in sections:
+                sec=Sections.objects.get(name=i)
+                secId=sec.id
+                current.clothingSections.add(secId)
+                current.save()
+                
+    except Exception as e:
+        print(f"[ERROR] {e}")
+        return JsonResponse({"success": False, "error": str(e)}, status=500)
         
         #add the item to inventory
         user=UserProfile.objects.get(user=request.user)
