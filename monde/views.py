@@ -179,7 +179,15 @@ def sell_page(request):
                 sec=Sections.objects.get(name=i)
                 secId=sec.id
                 current.clothingSections.add(secId)
-            current.save()
+                
+            section_count = current.clothingSections.count()
+
+            #validate the amount of sections selected by user
+            if section_count < 1 or section_count > 3:
+                current.delete()  # Cleanup the just-saved item
+                return HttpResponse("You must select between 1 and 3 sections.", status=400)
+            else:
+                current.save()
             
             #add the item to inventory
             user=UserProfile.objects.get(user=request.user)
@@ -195,9 +203,7 @@ def sell_page(request):
             print(f"[ERROR] {e}")
             return JsonResponse({"success": False, "error": str(e)}, status=500)
         
-    return(render(request,"monde/sell.html",{
-        "sections":sections,
-    }))
+    return redirect("index")
 
 def single_item(request,clothing_id):
     clothing_id=str(clothing_id).replace("{%url ","")
