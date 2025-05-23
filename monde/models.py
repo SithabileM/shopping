@@ -24,7 +24,6 @@ class ClothingItem(models.Model):
     name=models.CharField(max_length=65)
     description=models.TextField(max_length=1000)
     shortDescription=models.CharField(default="No caption",max_length=30)
-    rating=models.FloatField(null=True,blank=True,validators=[MinValueValidator(0.0),MaxValueValidator(5.0)])
     quantity=models.IntegerField(default=0, validators=[MinValueValidator(0)])
     price=models.DecimalField(default=0,max_digits=10, decimal_places=2)
     shippingDate=models.DateField(null=False,blank=False,default=monthFromNow)
