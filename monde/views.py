@@ -224,7 +224,6 @@ def single_item(request,clothing_id):
                 "description":item.description,
                 "shortDescription":item.shortDescription,
                 "name":item.name,
-                "rating":item.rating,
                 "quantity":item.quantity,
                 "price":item.price,
                 "image":item.image,
