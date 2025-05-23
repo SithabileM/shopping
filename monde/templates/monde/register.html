@@ -1,10 +1,18 @@
 {%extends "monde/layout.html"%}
 
+{%block head%}
+{%load static%}
+<link rel='stylesheet' href="{% static "css/register.css" %}"/>
+{%endblock%}
+
 {%block body%}
-<h1>Register</h1>
+<div id="registerForm">
 <form method="POST" action="">
     {% csrf_token %}
+    <h1 id="registerHeader">Register</h1>
     {{form.as_p}}
     <input type="submit" name="Create user">
 </form>
+<text> already have an account?| </text> <a href='login'> login </a>
+</div>
 {%endblock%}

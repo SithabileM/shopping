@@ -6,21 +6,24 @@
 {%endblock%}
 
 {%block body%}
-</form>
 {%if isSeller%}
+<div id="sellerOptions">
+</form>
 <form action="restock" method="post" >
     {%csrf_token%}
-<P>Welcome back hustler...would you like to restock?</p>
+<P>Welcome back...would you like to restock this item?</p>
 <input type="number" name="restock" placeholder="Amount to add">
 <input type="hidden" name="clothing_id" value="{{clothing_id}}">
 <input type="submit">
 </form>
-<a href="sellsManagement">see more...</a>
+<a href="sellsManagement" style="text-decoration: none;">manage sells...</a>
+<br>
+</div>
 {%endif%}
 <br>
 
-<div>
 <img id="productImage" src="{{image}}">
+<div id="itemPurchase">
 <h2 id="short-description">{{shortDescription}}</h2>
 <pre style=" border-width:2px;display: flex;">{{description}}</pre>
 <p>{{name}}</p>

@@ -15,7 +15,38 @@ background-color: rgb(255,0,150);
     text-align: center;
 }
 #description{
-    width: 35%; 
+    width: 50%; 
     height:100%; 
     display: inline-block;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    color: #333;
+    margin: 0;
+    padding: 2rem;
+}
+
+.form-container {
+    max-width: 700px;
+    margin: auto;
+    padding: 2rem;
+    background: #ffc5c5;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    margin-bottom: 1rem;
 }

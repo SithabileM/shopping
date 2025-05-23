@@ -4,7 +4,7 @@
     left : -200px;
     overflow: auto; 
     width: 200px; 
-    height: 450px;
+    height: 100%;
     transition: left 0.015s;
     padding-top: 4%;
     background-color: pink;

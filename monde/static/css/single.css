@@ -1,6 +1,7 @@
 #productImage{
     width:400px; 
     height:400px;
+    margin-left: 35%;
 }
 
 #Reviews{
@@ -9,6 +10,7 @@
     margin-bottom: 5%;
     padding-bottom: 1%;
     margin-top: 5%;
+    margin-left: 5%;
 }
 
 #userReview{
@@ -41,4 +43,15 @@
 
 #addReviewButton:hover{
     background-color: rgb(255,0,150);
+}
+
+#sellerOptions{
+    font-family: sans-serif;
+    padding-left: 35%;
+}
+
+#itemPurchase{
+    font-family: sans-serif;
+    margin-left: 5%;
+
 }

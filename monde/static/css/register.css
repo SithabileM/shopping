@@ -1,0 +1,43 @@
+#registerHeader{
+    margin-top: 0%;
+    text-align:center;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+#registerForm{
+   justify-content: center; 
+   box-sizing: border-box;
+   font-family: sans-serif;
+   background-color: white;
+   width: 35%;
+   margin-left: 35%;
+   margin-top: 7%;
+   padding: 2% 2% 2% 2%;
+   border-radius: .8rem;
+   text-align: justify;
+}
+
+body{
+    background-color: #ffc5c5;
+}
+
+input{
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    margin-bottom: 1rem;
+}
+
+input[type="submit"]:hover{
+    background-color: rgb(230,0,140);
+}
+
+label{
+    font-weight: bold;
+}

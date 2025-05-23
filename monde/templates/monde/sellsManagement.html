@@ -1,27 +1,38 @@
 {%extends "monde/layout.html"%}
 
+{%block head%}
+{%load static%}
+<link rel="stylesheet" href="{%static "css/sellManagement.css"%}"/>
+
+{%endblock%}
+
 {%block body%}
 <body>
-<h1>Sells</h1>
-<div>
-<table>
-    <tr>
-        <th>Customer</th>
-        <th>Item</th>
-        <th>Item Id</th>
-        <th>Status</th>
-        <th>amount</th>
+    <main class="table">
+    <div class="tableHeader">
+        <h1>Sells</h1>
+    </div>
+<div class="tableBody">
+    <table>
+        <tr>
+            <th>Customer</th>
+            <th>Item</th>
+            <th>Item Id</th>
+            <th>Status</th>
+            <th>amount</th>
         
-    </tr>
-    {%for i,v in sellsTableContent.items%}
-    <tr>
-        {%for k in v%}
-            <td><p>{{k}}</p></td>
+        </tr>
+        {%for i,v in sellsTableContent.items%}
+            <tr>
+                {%for k in v%}
+                    <td><p>{{k}}</p></td>
+                {%endfor%}
+            </tr>
         {%endfor%}
-    </tr>
-    {%endfor%}
-</table>
+
+    </table>
 </div>
+
 <h2> Deliver items: </h2>
 {%for d in DeliveriesButtonsContent%}
 <form method="get" action="deliver">
@@ -30,5 +41,6 @@
     <input name="item" type='submit' value="{{d}}">
 </form>
 {%endfor%}
+</main>
 </body>
 {%endblock%}
