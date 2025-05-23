@@ -13,7 +13,6 @@ class TestViews(TestCase):
             name="coat",
             description="brown long coat",
             shortDescription="brown coat",
-            rating=2,
             quantity=10,
             price=50,
             
