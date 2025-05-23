@@ -270,9 +270,10 @@ def remove_from_cart(request):
     return redirect("index")
 
 #peforms necessary operations for the checkout process
+@require_POST
 def checkout(request):
     #get the subtotal
-    subtotal=request.GET.get("subtotal")
+    subtotal=request.POST.get("subtotal")
     #check if user has a sufficcient balance for the purchase and if not, display a message
     subtotal=float(subtotal[11:])
     user=UserProfile.objects.get(user=request.user.id)
