@@ -154,7 +154,6 @@ def sell_page(request):
             quantity=request.POST.get("quantity")
             price=request.POST.get("price")
             shippingDate=request.POST.get("shippingDate")
-            rating=request.POST.get("rating")
         
             image_file = request.FILES.get("image")
             if image_file:
@@ -171,8 +170,7 @@ def sell_page(request):
                 quantity=quantity,
                 price=price,
                 image=image_url,
-                shippingDate=shippingDate,
-                rating=rating,     
+                shippingDate=shippingDate     
                 )
        
             for i in sections:
