@@ -260,58 +260,67 @@ def restock(request):
 @require_POST
 def remove_from_cart(request):
     #get the key of the item to be removed
-    myItem=request.POST.get("item")
-    cart=CartItems.objects.filter(user=request.user)
-    for i in cart:
-        #check if child object is not none
-        if i.item is not None:
-            if i.item.image==myItem:
-                i.delete()
+    if request.method=="POST":
+        try:
+            myItem=request.POST.get("item")
+            cart=CartItems.objects.filter(user=request.user)
+            for i in cart:
+                #check if child object is not none
+                if i.item is not None:
+                    if i.item.image==myItem:
+                        i.delete()
+        except Exception as e:
+            print(f"[ERROR] {e}")
+            return JsonResponse({"success": False, "error": str(e)}, status=500)
     return redirect("index")
 
 #peforms necessary operations for the checkout process
 @require_POST
 def checkout(request):
     #get the subtotal
-    subtotal=request.POST.get("subtotal")
-    #check if user has a sufficcient balance for the purchase and if not, display a message
-    subtotal=float(subtotal[11:])
-    user=UserProfile.objects.get(user=request.user.id)
-    balance=user.bank_balance
-    if balance < subtotal:
-        return HttpResponse("Insufficient Balance: You have insufficient funds to proceed with the payments")
-    #get the submitted cart items
-    cart=MyCart()
-    cartItems=cart.getCart(request.user)
-    for i in cartItems:
-        #decrease each items quantity
-        itemToDecrease=ClothingItem.objects.get(image=i)
-        itemToDecrease.quantity-=int(cartItems[i][0])
-        itemToDecrease.save()
-        #decrease the current users bank balance by the amount
-        user=UserProfile.objects.get(user=request.user)
-        user.bank_balance -= float(cartItems[i][1])
-        #increase the seller of i bank balance by the price
-        itemToDecreaseId=itemToDecrease.id
-        seller=UserProfile.objects.get(inventory=itemToDecreaseId)
-        seller.bank_balance+=float(cartItems[i][1])
-        seller.save()
-        #make the item a user owned item
-        UserOwnedItems.objects.create(
-            user=request.user,
-            clothing_item=itemToDecrease,
-            amount_purchased=int(cartItems[i][0]),
-            status=False
-            )
-    #clear the users cart
-    if not cartItems:
-        return HttpResponse("Oops! It looks like your cart is empty")
-    myCart=CartItems.objects.filter(user=request.user)
-    for item in myCart:
-        item.delete()
-    #display a success message
-    cartItems={}
-    return HttpResponse("Thank You for shopping with Monde :)")
+    try:
+        subtotal=request.POST.get("subtotal")
+        #check if user has a sufficcient balance for the purchase and if not, display a message
+        subtotal=float(subtotal[11:])
+        user=UserProfile.objects.get(user=request.user.id)
+        balance=user.bank_balance
+        if balance < subtotal:
+            return HttpResponse("Insufficient Balance: You have insufficient funds to proceed with the payments")
+        #get the submitted cart items
+        cart=MyCart()
+        cartItems=cart.getCart(request.user)
+        for i in cartItems:
+            #decrease each items quantity
+            itemToDecrease=ClothingItem.objects.get(image=i)
+            itemToDecrease.quantity-=int(cartItems[i][0])
+            itemToDecrease.save()
+            #decrease the current users bank balance by the amount
+            user=UserProfile.objects.get(user=request.user)
+            user.bank_balance -= float(cartItems[i][1])
+            #increase the seller of i bank balance by the price
+            itemToDecreaseId=itemToDecrease.id
+            seller=UserProfile.objects.get(inventory=itemToDecreaseId)
+            seller.bank_balance+=float(cartItems[i][1])
+            seller.save()
+            #make the item a user owned item
+            UserOwnedItems.objects.create(
+                user=request.user,
+                clothing_item=itemToDecrease,
+                amount_purchased=int(cartItems[i][0]),
+                status=False
+                )
+        #clear the users cart
+        if not cartItems:
+            return HttpResponse("Oops! It looks like your cart is empty")
+        myCart=CartItems.objects.filter(user=request.user)
+        for item in myCart:
+            item.delete()
+        #display a success message
+        cartItems={}
+        return HttpResponse("Thank You for shopping with Monde :)")
+    except Exception as e:
+            print(f"[ERROR] {e}")
+            return JsonResponse({"success": False, "error": str(e)}, status=500)
 
 def review_view(request):
     """Get a review from the items page and put it up in the admin page"""
