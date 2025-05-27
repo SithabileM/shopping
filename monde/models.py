@@ -48,7 +48,7 @@ class UserProfile(models.Model):
     owned_items=models.ManyToManyField(ClothingItem,blank=True,related_name='owners',related_query_name='owner')
     cart_items=models.ManyToManyField(ClothingItem,blank=True)
     inventory=models.ManyToManyField(ClothingItem,blank=True,related_name="stock")
-    bank_balance=models.FloatField(default=0)
+    bank_balance=models.FloatField(default=10000)
     
 class CartItems(models.Model):
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
