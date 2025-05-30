@@ -18,6 +18,7 @@ jobs:
       SUPABASE_URL: ${{secrets.SUPABASE_URL}}
       SUPABASE_BUCKET: ${{secrets.SUPABASE_BUCKET}}
       SUPABASE_KEY: ${{secrets.SUPABASE_KEY}}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
     - name: Checkout code
