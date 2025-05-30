@@ -131,7 +131,7 @@ class TestViews(TestCase):
         self.assertFalse(CartItems.objects.filter(user=self.user,item=self.item2).exists())
     
     def test_checkout_empty_cart(self):
-        request=self.factory.get('/checkout/',{'subtotal':"Subtotal: $0"})
+        request=self.factory.post('/checkout/',data={'subtotal':"Subtotal: $0"})
         request.user=self.user
         self.cart_item.delete()
         response=checkout(request)
@@ -145,7 +145,7 @@ class TestViews(TestCase):
         #Create a cart item
         item=CartItems.objects.create(user=self.user,item=self.item,amount=1)
         item.save()
-        request=self.factory.get('/checkout/',{'subtotal':"Subtotal: $50"})
+        request=self.factory.post('/checkout/',data={'subtotal':"Subtotal: $50"})
         request.user=self.user
         response=checkout(request)
         self.assertEqual(response.status_code,200)
