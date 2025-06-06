@@ -4,13 +4,9 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from .models import *
 from .form import ClothingForm
-from datetime import date
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from django.views.decorators.http import require_POST
-from imagekitio import ImageKit
-import os
-from django.conf import settings
 from .supabase_utils import upload_image_to_supabase
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
