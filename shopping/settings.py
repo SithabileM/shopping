@@ -107,7 +107,7 @@ DATABASES = {
         'NAME': 'railway',
         'USER': 'postgres',
         'PASSWORD': 'WoCuAugNJDuUGiSnSCCkUcRebIsvshCF',
-        'HOST': os.environ.get('Database_URL'),
+        'HOST': 'postgres.railway.internal',
         'PORT': '5432',
     }
 }
