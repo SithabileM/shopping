@@ -153,6 +153,7 @@ def sell_page(request):
         
             image_file = request.FILES.get("image")
             if image_file:
+                pass
                 image_url = upload_image_to_supabase(image_file)
             else:
                 image_url = None

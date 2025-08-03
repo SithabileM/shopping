@@ -29,7 +29,7 @@
     <form method="POST" action="remove">
         {%csrf_token%}
         <input type="hidden" name="item" value="{{i}}">
-        <input type="submit" value="Remove from cart">
+        <input type="submit" value="Remove item">
     </form>
     {%for val in v%}
     <p id="cartPriceAndAmount">{{val}}</P>
@@ -41,7 +41,7 @@
         {%csrf_token%}
         <input type="hidden" name="cartItems" value="{{cart_data}}">
         <input type="hidden" name="subtotal" value="{{subtotal}}">
-        <input id="checkout" type="submit" value="Proceed to checkout">
+        <input id="checkout" type="submit" value="Checkout">
     </form>
 </nav>
 
@@ -55,7 +55,7 @@
     <form action='' method="post">
         {% csrf_token %}
         <input id="search" type="text" name="search" placeholder="Search..."/>
-        <input type="submit" value="Search">
+        <input type="submit" value="Search" id='searchSubmit'>
     </form>
 {%if obj%}
 <h3>Successfully Loaded: {{img_obj.description}}

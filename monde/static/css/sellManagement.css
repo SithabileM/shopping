@@ -23,10 +23,12 @@ th{
     top: 0;
     left: 0;
     background-color: #d5d1defe;
+   
 }
 table, th, td {
     border-collapse: collapse;
     padding: 1rem;
+    font-size: 2rem;
 
 }
 
@@ -74,3 +76,10 @@ main.table{
 .tableBody:hover::-webkit-scrollbar{
     visibility: visible;
 }
+
+h2{
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+

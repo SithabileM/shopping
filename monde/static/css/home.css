@@ -1,19 +1,23 @@
 #menu{
     position: fixed;
     top: 0;
-    left : -200px;
-    overflow: auto; 
-    width: 200px; 
-    height: 100%;
+    left : -420px;
+    overflow-y: scroll; 
+    width: 420px; 
+    max-height: 90%;
     transition: left 0.015s;
     padding-top: 4%;
     background-color: pink;
+   
 }
 #menu-button{
     position: fixed;
     top:0;
     left:0;
     z-index:1;
+    width:10rem;
+    height:5rem;
+    font-size:4rem;
 
 }
 #main-content{
@@ -24,18 +28,21 @@
     left:0;
 }
 #main-content.menu-open{
-    margin-left: 250px;
+    margin-left: 8rem;
 }
 #welcome{
     text-align: center;
+    font-size: 8rem;
 }
 
 #navImage{
+    margin-top: 3.5rem;
     width:200px; 
     height:200px;
 }
 #sectionHeader{
     color:rgb(255,0,150);
+    font-size: 6rem;
 }
 
 #sectionContent{
@@ -48,8 +55,8 @@
     display: inline-block;
 }
 #mainPageImages{
-    width: 200px; 
-    height: 200px; 
+    width: 25rem; 
+    height: 25rem; 
     margin: 10px; 
     transition: box-shadow 0,5s;
 }
@@ -68,14 +75,19 @@
 
 #search{
     border-color: black;
+    width: 50%;
+    height: 3.4rem;
+    font-size: 2.5rem;
 }
 
 #cartPriceAndAmount{
     color: black;
     font-weight: bold;
+    font-size: 4rem;
 }
 #cartItem{
     background-color: pink;
+    overflow-y: auto;
 }
 
 #checkout:hover{
@@ -86,11 +98,78 @@
     text-decoration: none;
     color:red;
     margin-right: 0.5%;
+    font-size: 2.5rem;
 }
 
 #logout:hover{
     color: black;
 }
 #links{
+    font-size: 4rem;
     text-align: right;
+    margin-left:50%;
+    margin-bottom: 4rem;
+}
+#searchSubmit{
+    width:15%;
+    height:4rem;
+    font-size: 2.7rem;
+}
+p{
+    font-size: 3.5rem;
+    margin-right: 1.5rem;
+    
+}
+
+input{
+    height:5rem;
+    font-size:2rem;
+    
+
+}
+
+@media(min-width: 768px){
+    #welcome{
+        font-size: 4rem;
+    }
+    #links{
+        font-size:2rem;
+    }
+    #menu-button{
+        font-size: 2.5rem;
+        width:7rem;
+        height:3rem;
+    }
+    #sectionHeader{
+        font-size: 2.5rem;
+    }
+
+    p{
+        font-size: 1.8rem;
+    }
+
+    #logout{
+        font-size: 1.5rem;
+    }
+
+    #search{
+        font-size: 1.8rem;
+    }
+    #searchSubmit{
+        font-size: 1.8rem;
+    }
+    input{
+        font-size: 1.8rem;
+        height: 3rem;
+        
+    }
+
+    #cartPriceAndAmount{
+        font-size: 1.5rem;
+    }
+
+    #menu{
+        width: 280px;
+    }
+
 }

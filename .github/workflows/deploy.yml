@@ -19,11 +19,6 @@ jobs:
       SUPABASE_BUCKET: ${{secrets.SUPABASE_BUCKET}}
       SUPABASE_KEY: ${{secrets.SUPABASE_KEY}}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      DATABASE_HOST: ${{secrets.DATABASE_HOST}}
-      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
-      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
-      DATABASE_USER: ${{secrets.DATABASE_USER}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v3

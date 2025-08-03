@@ -39,8 +39,8 @@
     <input type="hidden" name="clothing_id" value="{{clothing_id}}">
     <input type="hidden" name="price" value="{{price}}">
     <input type="hidden" name="shortDescription" value="{{shortDescription}}">
-    <label for="amount">specify the quantity of the item you wamt to purchase: </label>
-    <input id="amount" type='number' name="amount" max='{{quantity}}' min=1><br>
+    <label for="amount">specify the quantity of the item you want to purchase: </label>
+    <input id="amount" type='number' name="amount" max='{{quantity}}' min=1 placeholder='amount...'><br>
     <button id="submit" type="submit" name="submit">Add to cart</button>
 </form>
 </div>
@@ -56,7 +56,7 @@
         <div id="userReview">
         {%if review.review is not None%}
             <p> {{ review.review}}</P>
-            <p>{{review.user }}</p>
+            <p id='username'>{{review.user }}</p>
         {%endif%}
 
         </div>

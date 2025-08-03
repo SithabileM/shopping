@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,9 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-!hbbbaa6u89obkith=rkvc%0s)x*e$*yog5h@92bh%r$!pdmce'
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG","True")=="False"
+DEBUG = True
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','127.0.0.1,localhost').split(',')
 CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS","https://default.localhost").split(",")
@@ -59,6 +59,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+load_dotenv()
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")  
+SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
 
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 
@@ -90,26 +94,21 @@ WSGI_APPLICATION = 'shopping.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG==True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-"""
+else:
 
-#switch database to postgresql
+    #switch database to postgresql for production
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'WoCuAugNJDuUGiSnSCCkUcRebIsvshCF',
-        'HOST': 'trolley.proxy.rlwy.net',
-        'PORT': '26870',
-    }
+    DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL')
+    )
 }
 
 
@@ -154,15 +153,15 @@ STATIC_URL = 'static/'
 BASE_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL='/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'monde/static')
-"""
+
 if DEBUG:
     MEDIA_URL='/media/'
     MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
-"""
-load_dotenv()
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")  # Use service role for server-side ops
-SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
+else:
+    load_dotenv()
+    SUPABASE_URL = os.getenv("SUPABASE_URL")
+    SUPABASE_KEY = os.getenv("SUPABASE_KEY")  # Use service role for server-side ops
+    SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
 
 
 
@@ -171,3 +170,5 @@ SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS=['127.0.0.1']

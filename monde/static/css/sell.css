@@ -1,9 +1,13 @@
 .sellFormField{
-    margin-bottom: 0.5%;
+    margin-bottom: 8%;
+    font-size: 3rem;
 }
 
 .sellFormField:hover{
    border-color: black; 
+}
+#submit{
+    margin-top: 2rem;
 }
 
 #submit:hover{
@@ -13,11 +17,13 @@ background-color: rgb(255,0,150);
 
 #itemHeader{
     text-align: center;
+    font-size: 4rem;
 }
 #description{
     width: 50%; 
     height:100%; 
     display: inline-block;
+    font-size: 3rem;
 }
 
 body {
@@ -40,13 +46,60 @@ body {
 input[type="text"],
 input[type="date"],
 input[type="number"],
+input[type="submit"],
 textarea,
 select {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 1rem;
     background-color: #f9f9f9;
     margin-bottom: 1rem;
+    font-size: 3rem;
+}
+
+p{
+    font-size: 1.3rem;
+}
+
+label{
+    font-size: 2.8rem;
+}
+
+input [type='checkbox']{
+    transform: scale(1.5);
+}
+
+@media(min-width: 768px){
+    p{
+    font-size: 1rem;
+    }
+
+    label{
+    font-size: 2rem;
+    }
+
+    #itemHeader{
+        font-size: 3rem;
+    }
+
+    .sellFormField{
+        font-size: 2rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="submit"],
+    textarea,
+    select {
+    font-size: 1.8rem;
+    }
+
+    #description{
+        font-size: 1.8rem;
+    }
+    label{
+        font-size: 1.5rem;
+    }
 }
