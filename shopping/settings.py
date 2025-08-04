@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!hbbbaa6u89obkith=rkvc%0s)x*e$*yog5h@92bh%r$!pdmce'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -160,7 +160,7 @@ if DEBUG:
 else:
     load_dotenv()
     SUPABASE_URL = os.getenv("SUPABASE_URL")
-    SUPABASE_KEY = os.getenv("SUPABASE_KEY")  # Use service role for server-side ops
+    SUPABASE_KEY = os.getenv("SUPABASE_KEY")  
     SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
 
 
