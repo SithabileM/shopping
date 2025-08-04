@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 import dj_database_url
 
 
@@ -59,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-load_dotenv()
+
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")  
 SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
@@ -158,7 +157,6 @@ if DEBUG:
     MEDIA_URL='/media/'
     MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 else:
-    load_dotenv()
     SUPABASE_URL = os.getenv("SUPABASE_URL")
     SUPABASE_KEY = os.getenv("SUPABASE_KEY")  
     SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "media")
