@@ -72,7 +72,7 @@ def register(request) :
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
-        return (HttpResponseRedirect("login"))
+        return render(request,'monde/register.html')
     #get the item names and images and prices in the cart of currently signed in user
     user=request.user
     cart_data={}
