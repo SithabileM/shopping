@@ -28,8 +28,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG','False').lower()=='true'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','127.0.0.1,localhost').split(',')
-CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS","https://default.localhost").split(",")
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://shopping-9vy4.onrender.com']
 
 
 # Application definition
