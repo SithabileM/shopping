@@ -67,12 +67,12 @@ def register(request) :
             UserProfile.objects.create(user=user)
             return redirect('login')
     context={"form":form}
-    return render(request,"monde/register.html",context)
+    return render(request,"register.html",context)
            
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
-        return render(request,'monde/register.html')
+        return redirect(request,'monde/login.html')
     #get the item names and images and prices in the cart of currently signed in user
     user=request.user
     cart_data={}
