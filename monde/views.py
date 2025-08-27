@@ -67,7 +67,7 @@ def register(request) :
             UserProfile.objects.create(user=user)
             return redirect('login')
     context={"form":form}
-    return render(request,"register.html",context)
+    return render(request,"monde/register.html",context)
            
 # Create your views here.
 def index(request):
