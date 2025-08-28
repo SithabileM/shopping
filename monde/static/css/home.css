@@ -1,10 +1,8 @@
 #menu{
-    display: flex;
-    flex-direction: column;
     position: fixed;
     top: 0;
     left : -420px;
-    overflow-y:scroll; 
+    overflow-y:auto; 
     width: 420px; 
     max-height: 90%;
     transition: left 0.015s;
