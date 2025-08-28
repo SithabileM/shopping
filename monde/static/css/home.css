@@ -4,9 +4,9 @@
     position: fixed;
     top: 0;
     left : -420px;
-    overflow-y: scroll; 
+    overflow-y:scroll; 
     width: 420px; 
-    min-height: 90%;
+    max-height: 90%;
     transition: left 0.015s;
     padding-top: 4%;
     background-color: pink;
