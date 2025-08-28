@@ -328,7 +328,7 @@ def review_view(request):
         clothingInst=ClothingItem.objects.get(id=clothing)
     if userReview != "":
         Review.objects.create(user=currentUser, reviewItem=clothingInst,review=userReview)
-    return HttpResponseRedirect("/monde/"+str(clothing))
+    return HttpResponseRedirect(str(clothing))
    
 
 def sellsManagement(request):
