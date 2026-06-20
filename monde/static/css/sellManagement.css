@@ -7,7 +7,7 @@
 
 body{
     min-height: 100vh;
-    background: url(https://wxllchqeqxjkpiurgudk.supabase.co/storage/v1/object/public/media//IMG-20240618-WA0002.jpg) center / cover;
+    background: url(https://noruhbvggbhumyrrxpja.supabase.co/storage/v1/object/sign/media/uploads/IMG-20240618-WA0002.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jYjJhZDI0Yy0yODQ2LTQ1NWEtYjZlZS1kNTlkNWY5NDMzMGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtZWRpYS91cGxvYWRzL0lNRy0yMDI0MDYxOC1XQTAwMDIuanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTk4NTQ4OCwiZXhwIjoxODEzNTIxNDg4fQ.qKnt7ol6tjMYYf63C7ZpTZ4uMWAfkVvX7efRbhpBhKw) center / cover;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
