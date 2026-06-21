@@ -21,6 +21,9 @@ body{
 }
 
 #loginForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     align-content: center;
    box-sizing: border-box;
    font-family: sans-serif;
@@ -31,6 +34,7 @@ body{
    padding: 2% 2% 2% 2%;
    border-radius: .8rem;
    text-align: justify;
+   min-height: 90vh;
 }
 
 #loginHeader{
